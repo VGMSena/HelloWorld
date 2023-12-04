@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#017611"
-    android:gravity="center"
+    android:background="@color/colorPrimario"
+    android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -19,21 +19,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenidos"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"/>
+            android:text= "@string/bienvenido"
+            android:textSize="30sp"
+            android:textColor="@color/white"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="150sp"
-            android:layout_height="150sp"
+            android:layout_width="200sp"
+            android:layout_height="200sp"
+            android:layout_marginTop="50sp"
             android:src="@drawable/logo_sena"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="App Sena Móviles"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"/>
+            android:layout_marginTop="50sp"
+            android:text="@string/cargando"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150sp"
+            android:text="@string/desarrollador"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>
