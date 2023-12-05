@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimario"
     android:gravity="center_horizontal"
-    tools:context=".MainActivity">
+    tools:context=".Loading">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

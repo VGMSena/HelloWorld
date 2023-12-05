@@ -3,4 +3,13 @@
     <string name="bienvenido">Bienvenido!</string>
     <string name="cargando">Cargando...</string>
     <string name="desarrollador">Desarrollado por Valentín Gamas Maldonado</string>
+
+    <string name="tituloMenuPrincilal">Menu Principal</string>
+    <string name="menuInicio">Inicio</string>
+    <string name="registroAdmin">Registrar Admin</string>
+    <string name="salir">Cerrar Sesión</string>
+    <string name="abrirMenu">Abrir barra de navegación</string>
+    <string name="cerrarMenu">Cerrar barra de navegación</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
