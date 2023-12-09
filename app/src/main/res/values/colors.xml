@@ -3,4 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimario">#017611</color>
+    <color name="colorSecundario">#79FE99</color>
+    <color name="colorTexto">#017611</color>
+    <color name="colorFondo">#D3D3D3</color>
+    <color name="colorBoton">#6CA5EE</color>
+    <color name="colorTextoBoton">#FFFFFF</color>
+    <color name="colorError">#FA463B</color>
+    <color name="colorCampo">#D9D9D9</color>
 </resources>

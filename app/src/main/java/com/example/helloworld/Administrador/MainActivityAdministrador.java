@@ -1,29 +1,34 @@
-package com.example.helloworld;
+package com.example.helloworld.Administrador;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.helloworld.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivityAdministrador extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_administrador);
 
         Toolbar toolbar = findViewById(R.id.toolbarA);
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout_A);
+        drawerLayout = findViewById(R.id.drawer_menu);
         NavigationView navigationView = findViewById(R.id.nav_viewA);
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setItemIconTintList(null);
+
+        //navigationView.setItemIconTintList(null);
 
         ActionBarDrawerToggle toogle= new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.abrirMenu, R.string.cerrarMenu);
@@ -31,16 +36,30 @@ public class MainActivityAdministrador extends AppCompatActivity implements Navi
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
 
-/*        if(savedInstanceState == null) {
+        if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containerA,
                     new InicioAdmin()).commit();
 
             navigationView.setCheckedItem(R.id.InicioAdmin);
-        }*/
+        }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+
+        int opcion = item.getItemId();
+
+        if (opcion == R.id.InicioAdmin) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containerA, new InicioAdmin()).commit();
+        } else if (opcion == R.id.RegistroAdmin) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containerA, new RegistroAdmin()).commit();
+        } else if (opcion == R.id.Salir) {
+            Toast.makeText(this, "Cerrando sesión", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No se seleccionó opción", Toast.LENGTH_SHORT).show();
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

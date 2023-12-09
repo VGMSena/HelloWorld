@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.helloworld.Administrador.MainActivityAdministrador;
+
 public class Loading extends AppCompatActivity {
 
     @Override
