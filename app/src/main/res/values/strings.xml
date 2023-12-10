@@ -28,6 +28,8 @@
     <string name="fechaAdmin">Fecha de Nacimiento</string>
     <string name="fechaRegistro">Fecha</string>
     <string name="registrarAdmin">REGISTRAR</string>
+
+    <string name="camposVacios">Por favor llenar todos los campos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
