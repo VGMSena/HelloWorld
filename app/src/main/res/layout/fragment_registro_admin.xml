@@ -132,9 +132,10 @@
                 android:hint="@string/fechaAdmin"
                 android:inputType="date"
                 android:textAppearance="@style/campo"
+                android:clickable="true"
+                android:focusable="false"
                 />
-                <!--android:focusable="false"
-                android:clickable="true"-->
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

@@ -1,5 +1,6 @@
 package com.example.helloworld.Administrador;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,18 +13,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helloworld.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.Firebase;
+import com.google.android.gms.tasks.Task;
+//import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
-//import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import android.app.DatePickerDialog;
+import androidx.fragment.app.DialogFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -39,20 +49,21 @@ public class RegistroAdmin extends Fragment {
     Button RegistrarAdministrador;
     FirebaseAuth auth;
     ProgressDialog progressDialog;
-/*
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    /*
+        // TODO: Rename parameter arguments, choose names that match
+        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+        private static final String ARG_PARAM1 = "param1";
+        private static final String ARG_PARAM2 = "param2";
 
-    public RegistroAdmin() {
-        // Required empty public constructor
-    }
-*/
+        // TODO: Rename and change types of parameters
+        private String mParam1;
+        private String mParam2;
+
+        public RegistroAdmin() {
+            // Required empty public constructor
+        }
+    */
     /* *
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -96,8 +107,6 @@ public class RegistroAdmin extends Fragment {
         Apellidos = view.findViewById(R.id.apellidosAdmin);
         FechaNacimiento = view.findViewById(R.id.nacimientoAdmin);
 
-//        FechaNacimiento.setOnClickListener(this);
-
         RegistrarAdministrador = view.findViewById(R.id.btnRegistrar);
 
 //        auth = FirebaseAuth.getInstance();
@@ -108,7 +117,17 @@ public class RegistroAdmin extends Fragment {
         String Sfecha = fecha.format(date);
         FechaRegistro.setText(Sfecha);
 
-        RegistrarAdministrador.setOnClickListener(new View.OnClickListener(){
+
+        FechaNacimiento.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //DatePickerFragment newFragment = new DatePickerFragment();
+                //newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+                showDatePickerDialog(FechaNacimiento);
+            }
+        });
+
+        RegistrarAdministrador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String correo = Correo.getText().toString();
@@ -116,12 +135,10 @@ public class RegistroAdmin extends Fragment {
                 String nombres = Nombres.getText().toString();
                 String apellidos = Apellidos.getText().toString();
                 String nacimiento = FechaNacimiento.getText().toString();
-                String tipoUsuario = "A";
 
                 if (correo.isEmpty() || pass.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || nacimiento.isEmpty()) {
-                    Toast.makeText(getActivity(),"Por favor llenar todos los campos", Toast.LENGTH_LONG).show();
-                }
-                else {
+                    Toast.makeText(getActivity(), "Por favor llenar todos los campos", Toast.LENGTH_LONG).show();
+                } else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
                         Correo.setError("Correo inválido");
                         Correo.setFocusable(true);
@@ -146,9 +163,8 @@ public class RegistroAdmin extends Fragment {
 
         progressDialog.show();
 
-        // com.google.android.firebase.aut.FirebaseAuth
-        auth.createUserWithWmailAndPassword(email, clave).addOnCompleteListener(new OncompleteListener<AuthResult>() {
-            @Override
+        auth.createUserWithEmailAndPassword(email, clave).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
@@ -180,10 +196,9 @@ public class RegistroAdmin extends Fragment {
                     reference.child(UID).setValue(UsrAdministrador);
 
                     startActivity(new Intent(getActivity(), MainActivityAdministrador.class));
-                    Toast.makeText(getActivity(),"Administrador registrado exitosamente", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Administrador registrado exitosamente", Toast.LENGTH_LONG).show();
                     getActivity().finish();
-                }
-                else {
+                } else {
                     progressDialog.dismiss();
                     Toast.makeText(getActivity(), "Error al registrar el administrador", Toast.LENGTH_SHORT).show();
                 }
@@ -191,24 +206,46 @@ public class RegistroAdmin extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    public static class DatePickerFragment extends DialogFragment {
 
+        private DatePickerDialog.OnDateSetListener listener;
 
-/*    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.nacimientoAdmin:
-                showDatePickerDialog();
-                break;
+        public static DatePickerFragment newInstance(DatePickerDialog.OnDateSetListener listener) {
+            DatePickerFragment fragment = new DatePickerFragment();
+            fragment.setListener(listener);
+            return fragment;
+        }
+
+        public void setListener(DatePickerDialog.OnDateSetListener listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        @NonNull
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), listener, year, month, day);
         }
     }
 
-    private void showDatePickerDialog() {
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker")
-    }*/
+    private void showDatePickerDialog(final EditText editText) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                editText.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
 }
