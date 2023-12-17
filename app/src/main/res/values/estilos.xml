@@ -4,6 +4,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/colorPrimario</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="normal">
@@ -14,6 +15,12 @@
     <style name="campo">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorPrimario</item>
+    </style>
+
+    <style name="hipervinculo">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/colorPrimario</item>
+
     </style>
 
 </resources>

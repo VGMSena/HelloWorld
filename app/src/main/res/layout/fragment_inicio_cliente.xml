@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Cliente.InicioCliente"
+    android:id="@+id/InicioCliente">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/tituloCategoria"
+            android:textAppearance="@style/titulo"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaIphoneCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/apple"
+                        />
+
+                    <Button
+                        android:id="@+id/botonIphoneCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/iphone"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:textSize="15sp"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaSamsungCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/samsung"
+                        />
+
+                    <Button
+                        android:id="@+id/botonSamsungCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/samsung"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaHuaweiCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/huawei"
+                        />
+
+                    <Button
+                        android:id="@+id/botonHuaweiCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/huawei"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaMotorolaCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/motorola"
+                        />
+
+                    <Button
+                        android:id="@+id/botonMotorolaCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/motorola"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaXiaomiCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/xiaomi"
+                        />
+
+                    <Button
+                        android:id="@+id/botonXiaomiCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xiaomi"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaOppoCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/oppo"
+                        />
+
+                    <Button
+                        android:id="@+id/botonOppoCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/oppo"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tarjetaNokiaCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                app:contentPadding="5sp"
+                android:backgroundTint="@color/colorFondoCliente"
+                android:layout_weight="0"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="120sp"
+                        android:layout_height="120sp"
+                        android:src="@drawable/nokia"
+                        />
+
+                    <Button
+                        android:id="@+id/botonNokiaCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nokia"
+                        android:textColor="@color/colorTextoBotonCliente"
+                        android:background="@drawable/btn_cliente"
+                        android:textSize="15sp"
+                        />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <!-- TODO: Update blank fragment layout -->
+
+</ScrollView>

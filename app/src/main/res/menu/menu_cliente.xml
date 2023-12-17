@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <item
+        android:title="Opciones"
+        >
+
+        <menu>
+            <item
+                android:id="@+id/InicioCliente"
+                android:title="@string/menuInicio"
+                android:icon="@drawable/home">
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:title="Mas Opciones">
+        <menu>
+            <item
+                android:id="@+id/IniciarSesion"
+                android:title="Iniciar Sesion"
+                android:icon="@drawable/iniciar_sesion">
+            </item>
+            <item
+                android:id="@+id/SalirApp"
+                android:title="Salir de la Tienda"
+                android:icon="@drawable/salir">
+            </item>
+        </menu>
+    </item>
+
+</menu>

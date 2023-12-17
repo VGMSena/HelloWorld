@@ -21,16 +21,25 @@
     <string name="xiaomi">XIAOMI</string>
 
     <string name="tituloAdministrador">Registro de Administrador</string>
-    <string name="correoAdmin">Correo electrónico</string>
+    <string name="correoAdmin">Correo Electrónico</string>
     <string name="contrasenaAdmin">Contraseña</string>
     <string name="nombresAdmin">Nombres</string>
     <string name="apellidosAdmin">Apellidos</string>
+    <string name="usuarioAdmin">Nombre de Usuario</string>
     <string name="fechaAdmin">Fecha de Nacimiento</string>
     <string name="fechaRegistro">Fecha</string>
     <string name="registrarAdmin">REGISTRAR</string>
+    <string name="LoginAdministrador">Login de Administrador</string>
 
     <string name="camposVacios">Por favor llenar todos los campos</string>
+
+    <string name="IngreseDatos">Ingrese sus Datos</string>
+    <string name="RegistroCliente"><u>Regístrese aquí</u></string>
+    <string name="OlvidoCliente"><u>Olvidó su contraseña?</u></string>
+    <string name="PerfilCliente">Perfil</string>
+    <string name="IniciarSesion">Inicio de Sesión</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

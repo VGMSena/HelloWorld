@@ -6,8 +6,11 @@
     <color name="colorSecundario">#79FE99</color>
     <color name="colorTexto">#017611</color>
     <color name="colorFondo">#D3D3D3</color>
+    <color name="colorFondoCliente">#D9FCFB</color>
     <color name="colorBoton">#6CA5EE</color>
+    <color name="colorBotonCliente">#FCEBD6</color>
     <color name="colorTextoBoton">#FFFFFF</color>
+    <color name="colorTextoBotonCliente">#B5B4B3</color>
     <color name="colorError">#FA463B</color>
     <color name="colorCampo">#D9D9D9</color>
 </resources>

@@ -3,9 +3,11 @@ package com.example.helloworld.Administrador;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Patterns;
@@ -19,13 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helloworld.R;
+import com.example.helloworld.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-//import com.google.firebase.Firebase;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,62 +41,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-/* *
- * A simple {@link Fragment} subclass.
- * Use the {@link RegistroAdmin#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegistroAdmin extends Fragment {
 
     TextView FechaRegistro;
-    EditText Correo, Password, Nombres, Apellidos, FechaNacimiento;
+    EditText Correo, Password, Nombres, Apellidos, NombreUsuario, FechaNacimiento;
     Button RegistrarAdministrador;
     FirebaseAuth auth;
     ProgressDialog progressDialog;
+    Usuario usrAdmin ;
 
-    /*
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private static final String ARG_PARAM1 = "param1";
-        private static final String ARG_PARAM2 = "param2";
 
-        // TODO: Rename and change types of parameters
-        private String mParam1;
-        private String mParam2;
-
-        public RegistroAdmin() {
-            // Required empty public constructor
-        }
-    */
-    /* *
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegistroAdmin.
-     */
-    // TODO: Rename and change types and number of parameters
-/*
-    public static RegistroAdmin newInstance(String param1, String param2) {
-
-        RegistroAdmin fragment = new RegistroAdmin();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
- */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,18 +63,18 @@ public class RegistroAdmin extends Fragment {
         Password = view.findViewById(R.id.contrasenaAdmin);
         Nombres = view.findViewById(R.id.nombresAdmin);
         Apellidos = view.findViewById(R.id.apellidosAdmin);
+        NombreUsuario = view.findViewById(R.id.usuarioAdmin);
         FechaNacimiento = view.findViewById(R.id.nacimientoAdmin);
 
         RegistrarAdministrador = view.findViewById(R.id.btnRegistrar);
 
-//        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         Date date = new Date();
         SimpleDateFormat fecha = new SimpleDateFormat("d'/'MM'/'yyyy");
 
         String Sfecha = fecha.format(date);
         FechaRegistro.setText(Sfecha);
-
 
         FechaNacimiento.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -130,23 +88,26 @@ public class RegistroAdmin extends Fragment {
         RegistrarAdministrador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String correo = Correo.getText().toString();
-                String pass = Password.getText().toString();
-                String nombres = Nombres.getText().toString();
-                String apellidos = Apellidos.getText().toString();
-                String nacimiento = FechaNacimiento.getText().toString();
+                Drawable iconoError  = ContextCompat.getDrawable(getContext(), R.drawable.error);
+                iconoError.setBounds(0,0, 32, 32);
 
-                if (correo.isEmpty() || pass.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || nacimiento.isEmpty()) {
+                usrAdmin = new Usuario(Correo.getText().toString(), Password.getText().toString(), Nombres.getText().toString(),
+                        Apellidos.getText().toString(), NombreUsuario.getText().toString(), FechaNacimiento.getText().toString(), "A");
+
+                if (usrAdmin.getCorreo().isEmpty() || usrAdmin.getPass().isEmpty() || usrAdmin.getNombres().isEmpty() || usrAdmin.getApellidos().isEmpty() ||
+                        usrAdmin.getUsrname().isEmpty() || usrAdmin.getNacimiento().isEmpty()) {
                     Toast.makeText(getActivity(), "Por favor llenar todos los campos", Toast.LENGTH_LONG).show();
                 } else {
-                    if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-                        Correo.setError("Correo inválido");
+                    if (!Patterns.EMAIL_ADDRESS.matcher(usrAdmin.getCorreo()).matches()) {
+                        Correo.setError("Correo inválido", iconoError);
                         Correo.setFocusable(true);
-                    } else if (pass.length() < 6) {
-                        Password.setError("La contraseña debe tener mínimo 6 caracteres");
+                    } else if (usrAdmin.getPass().length() < 6) {
+                        Password.setError("La contraseña debe tener mínimo 6 caracteres", iconoError);
                         Password.setFocusable(true);
+                    } else if (BuscarUsuario(usrAdmin.getUsrname())) {
+                        Toast.makeText(getActivity(), "El usuario " + usrAdmin.getUsrname() + " ya se encuentra registrado", Toast.LENGTH_LONG).show();
                     } else {
-                        AlmacenarAdministrador(correo, pass); // no me gusta estos parametros
+                        AlmacenarUsuario(usrAdmin);
                     }
                 }
             }
@@ -159,37 +120,57 @@ public class RegistroAdmin extends Fragment {
         return view;
     }
 
-    private void AlmacenarAdministrador(String email, String clave) {
+    private void AlmacenarUsuario(Usuario usrAdmin) {
 
         progressDialog.show();
 
-        auth.createUserWithEmailAndPassword(email, clave).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("USUARIOS");
 
+/*        reference.child(usrAdmin.getUsrname()).setValue(usrAdmin).addOnCompleteListener(new OnCompleteListener() {
+
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+
+                    startActivity(new Intent(getActivity(), MainActivityAdministrador.class));
+                    Toast.makeText(getActivity(), "Administrador registrado exitosamente", Toast.LENGTH_LONG).show();
+                    getActivity().finish();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getActivity(), "Error al registrar el administrador", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+*/
+
+        auth.createUserWithEmailAndPassword(usrAdmin.getCorreo(), usrAdmin.getPass()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     FirebaseUser user = auth.getCurrentUser();
                     assert user != null;
 
                     String UID = user.getUid();
-                    String correo = Correo.getText().toString();
-                    String pass = Password.getText().toString();
-                    String nombres = Nombres.getText().toString();
-                    String apellidos = Apellidos.getText().toString();
-                    String nacimiento = FechaNacimiento.getText().toString();
-                    String tipoUsuario = "A";
 
                     HashMap UsrAdministrador = new HashMap();
                     UsrAdministrador.put("UID", UID); // Generar un userid de alguna manera que no sea creando el registro en firebase
-                    UsrAdministrador.put("CORREO", correo);
-                    UsrAdministrador.put("PASSWORD", pass);
-                    UsrAdministrador.put("NOMBRES", nombres);
-                    UsrAdministrador.put("APELLIDOS", apellidos);
-                    UsrAdministrador.put("FECHANACIMIENTO", nacimiento);
-                    UsrAdministrador.put("TIPO", tipoUsuario);
+                    UsrAdministrador.put("CORREO", usrAdmin.getCorreo());
+                    UsrAdministrador.put("PASSWORD", usrAdmin.getPass());
+                    UsrAdministrador.put("NOMBRES", usrAdmin.getNombres());
+                    UsrAdministrador.put("APELLIDOS", usrAdmin.getApellidos());
+                    UsrAdministrador.put("FECHANACIMIENTO", usrAdmin.getNacimiento());
+                    UsrAdministrador.put("USRNAME", usrAdmin.getUsrname());
+                    UsrAdministrador.put("TIPO", usrAdmin.getTipoUsuario());
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = database.getReference("TIENDA CELULARES");
+                    DatabaseReference reference = database.getReference("USUARIOS");
 
                     // escribir en la coleccion de administradores y/o de usuarios
 
@@ -209,7 +190,9 @@ public class RegistroAdmin extends Fragment {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-    }
+
+        progressDialog.dismiss();
+    };
 
     public static class DatePickerFragment extends DialogFragment {
 
@@ -233,7 +216,14 @@ public class RegistroAdmin extends Fragment {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            return new DatePickerDialog(getActivity(), listener, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), listener, year, month, day);
+
+            c.set(year - 100, month, day);
+            datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+            c.set(year, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+
+            return datePickerDialog;
         }
     }
 
@@ -241,11 +231,31 @@ public class RegistroAdmin extends Fragment {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                final String selectedDate = day + " / " + (month + 1) + " / " + year;
                 editText.setText(selectedDate);
             }
         });
 
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
+    public boolean BuscarUsuario(String username) {
+
+        Boolean encontro = false ;
+
+/*
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("USUARIOS");
+        DataSnapshot datos;
+
+        Boolean encontro = false ;
+
+        if(reference.child("usrname").get().isSuccessful()) {
+            Toast.makeText(getActivity(), "Encontro " + username, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), "No encuenttra ese nombre de usuario " + username, Toast.LENGTH_LONG).show();
+        }
+*/
+        return encontro;
     }
 }

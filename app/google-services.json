@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "918843534456",
-    "project_id": "appsena-b3420",
-    "storage_bucket": "appsena-b3420.appspot.com"
+    "project_number": "673494485096",
+    "project_id": "appsena-3bd9d",
+    "storage_bucket": "appsena-3bd9d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:918843534456:android:671d89b88c32b4c384d18d",
+        "mobilesdk_app_id": "1:673494485096:android:dc6237ba483d4f3308d3dd",
         "android_client_info": {
           "package_name": "com.example.helloworld"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB2gU14rAY5t1mDjjXTsKcAs9t8Kfk0IpY"
+          "current_key": "AIzaSyC3wFTEf59iRIZIjnWp5OdvNMyrgwQSiQs"
         }
       ],
       "services": {

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.helloworld.Administrador.MainActivityAdministrador;
+import com.example.helloworld.Cliente.MainActivityCliente;
 
 public class Loading extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class Loading extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Loading.this, MainActivityAdministrador.class);
+                Intent intent = new Intent(Loading.this, MainActivityCliente.class);
                 startActivity(intent);
                 finish();
             }
